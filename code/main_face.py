@@ -19,7 +19,8 @@ def play_first_song(final_emotion):
     match = re.search(r'/watch\?v=([^\"]+)', html_content)
     if match:
         video_id = match.group(1)
-        video_url = f"https://www.youtube.com/watch?v={video_id}"
+        #video_url = f"https://www.youtube.com/watch?v={video_id}"
+        video_url = f"https://www.youtube.com/watch?v={video_id.encode('utf-8').decode('unicode_escape')}"
         webbrowser.open(video_url)
     
 # Load the pre-trained facial expression recognition model
