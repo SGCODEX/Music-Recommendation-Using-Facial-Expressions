@@ -1,7 +1,7 @@
-
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 import streamlit as st
 import cv2
-from keras.models import load_model  # Assuming you have Keras installed
+from keras.models import load_model
 import numpy as np
 import webbrowser
 import requests
@@ -10,16 +10,16 @@ import os
 import time
 
 # Load model and labels
-model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
+model = load_model("model/fer2013_mini_XCEPTION.102-0.66.hdf5")
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 # App config
 st.set_page_config(page_title="Emotion-Based Music Player", layout="centered")
 st.title("Facial Emotion Recognition App")
-st.write("This app detects your facial expression, displays the predicted emotion, and plays a suitable song.")
+st.write("This app detects your facial expression and plays a suitable song.")
 
-#Footer
+# Footer
 st.markdown(
     """
     <style>
@@ -36,6 +36,7 @@ st.markdown(
         box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
         border-top: 1px solid #ccc;
         margin-top: 50px;
+        z-index: 9999;
     }
     </style>
 
@@ -48,141 +49,74 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-#st.title("🧠 Detected Emotion KPI")
-
 # App state
 if "last_emotion" not in st.session_state:
     st.session_state.last_emotion = "Neutral"
 if "show_video" not in st.session_state:
     st.session_state.show_video = False
 
-# Function to detect emotion
-def detect_emotion(frame):
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+# Streamlit WebRTC Video Transformer
+class EmotionDetector(VideoTransformerBase):
+    def __init__(self):
+        self.last_emotion = "Neutral"
 
-    emotion = st.session_state.last_emotion
-    for (x, y, w, h) in faces:
-        roi_gray = gray[y:y+h, x:x+w]
-        roi_gray = cv2.resize(roi_gray, (64, 64))
-        roi = roi_gray.astype("float") / 255.0
-        roi = np.expand_dims(roi, axis=0)
-        roi = np.expand_dims(roi, axis=-1)
-        preds = model.predict(roi)[0]
-        emotion = emotions[np.argmax(preds)]
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-        cv2.putText(frame, emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
-        break
-    return frame, emotion
+    def transform(self, frame):
+        img = frame.to_ndarray(format="bgr24")
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-# ------------------------------
+        for (x, y, w, h) in faces:
+            roi_gray = gray[y:y+h, x:x+w]
+            roi_gray = cv2.resize(roi_gray, (64, 64))
+            roi = roi_gray.astype("float") / 255.0
+            roi = np.expand_dims(roi, axis=0)
+            roi = np.expand_dims(roi, axis=-1)
+            preds = model.predict(roi)[0]
+            self.last_emotion = emotions[np.argmax(preds)]
+            st.session_state.last_emotion = self.last_emotion
+
+            cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+            cv2.putText(img, self.last_emotion, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36, 255, 12), 2)
+            break
+
+        return img
+
 # 🎥 Live Camera Detection Mode
-# ------------------------------
 if not st.session_state.show_video:
-    col1, col2 = st.columns([1, 2])
+    st.subheader("📷 Capturing Your Live Emotions")
+    col1, col2 = st.columns([1, 2])  # Adjust the ratio as you prefer
 
     with col1:
-        st.subheader("📊 Current Emotion")
-        emotion_placeholder = st.empty()
-
-    cap = cv2.VideoCapture(0)
-    capture = False
+        capture = st.button("🎵 Play Song on Last Captured Emotion")
 
     with col2:
-        st.subheader("📷 Live Feed")
-        image_placeholder = st.empty()
-        st.markdown("<br>", unsafe_allow_html=True)
-        capture = st.button("🎵 Play Song on Captured Emotion")
+        ctx = webrtc_streamer(key="emotion", video_transformer_factory=EmotionDetector)
 
+    if capture:
+        if ctx.video_transformer:
+            st.session_state.last_emotion = ctx.video_transformer.last_emotion
+            st.session_state.show_video = True
+            st.rerun()
 
-    st.markdown("---")
-
-    while cap.isOpened() and not capture:
-        ret, frame = cap.read()
-        if not ret:
-            break
-
-        frame = cv2.resize(frame, (320, 240))
-        frame, detected_emotion = detect_emotion(frame)
-        st.session_state.last_emotion = detected_emotion
-
-        # Update live KPI and video feed
-
-        emotion_colors = {
-            "Happy": "#DFF2BF",
-            "Sad": "#FFBABA",
-            "Angry": "#FFAAAA",
-            "Surprise": "#FFFFBA",
-            "Neutral": "#E0E0E0",
-            "Fear": "#D0BAFF",
-            "Disgust": "#B0FFBA"
-        }
-
-        bg_color = emotion_colors.get(detected_emotion, "#f9fff9")
-
-        emotion_placeholder.markdown(
-            f"""
-            <div style="
-                display: inline-block;
-                padding: 10px 24px;
-                border: 2px solid #000000;
-                border-radius: 14px;
-                background-color: {bg_color};
-                font-size: 20px;
-                font-weight: 600;
-                color: #333;
-                text-align: center;
-                margin-top: 10px;
-                min-width: 120px;
-            ">
-                {detected_emotion}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-
-        image_placeholder.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), channels="RGB")
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-        time.sleep(0.1)  # Limit refresh rate
-
-    cap.release()
-    st.session_state.show_video = True  # switch mode
-
-# ------------------------------
 # 🎧 Play Song For Detected Mood
-# ------------------------------
 if st.session_state.show_video:
     st.markdown("## 🎧 Now Playing Music For Your Mood")
-    st.markdown(f"**Detected Mood:** `{st.session_state.last_emotion}`")
+    st.markdown(f"**Last Detected Mood:** `{st.session_state.last_emotion}`")
 
     if st.button("🔁 Detect Emotions Again"):
         st.session_state.show_video = False
         st.rerun()
 
     search_query = f"https://www.youtube.com/results?search_query={st.session_state.last_emotion}+background+tunes"
-        
-    # to fetch the search results page
     response = requests.get(search_query)
-        
-    # HTTP status code 200 = request was successful 
+
     if response.status_code != 200:
         print("Failed to retrieve YouTube search results. Status code:", response.status_code)
-        
+
     html_content = response.text
-        
     match = re.search(r'/watch\?v=([^\"]+)', html_content)
     if match:
         video_id = match.group(1)
-        #video_url = f"https://www.youtube.com/watch?v={video_id}"
         video_url = f"https://www.youtube.com/watch?v={video_id.encode('utf-8').decode('unicode_escape')}"
-            
-        # printing the video URL for debugging purposes
         st.video(video_url)
         print("Opening YouTube video:", video_url)
-
-
-
-
