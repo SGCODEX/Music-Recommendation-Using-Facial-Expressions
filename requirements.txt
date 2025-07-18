@@ -1,5 +1,4 @@
-streamlit
-tensorflow==2.13.0
+tensorflow==2.15.0
 opencv-python==4.8.0.76
 keras==2.15.0
 requests==2.31.0
