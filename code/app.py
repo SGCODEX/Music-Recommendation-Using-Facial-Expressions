@@ -90,7 +90,18 @@ if not st.session_state.show_video:
         capture = st.button("🎵 Play Song on Last Captured Emotion")
 
     with col2:
-        ctx = webrtc_streamer(key="emotion", video_transformer_factory=EmotionDetector)
+        #ctx = webrtc_streamer(key="emotion", video_transformer_factory=EmotionDetector)
+        # Google's STUN server helps WebRTC webcam work reliably across networks and firewalls.
+        ctx = webrtc_streamer(
+            key="emotion",
+            video_transformer_factory=EmotionDetector,
+            rtc_configuration={
+                "iceServers": [
+                    {"urls": ["stun:stun.l.google.com:19302"]}
+                ]
+            }
+        )
+
 
     if capture:
         if ctx.video_transformer:
