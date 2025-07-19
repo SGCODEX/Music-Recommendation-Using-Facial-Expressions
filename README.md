@@ -28,17 +28,21 @@ This project supports three ways to interact with the emotion-based music recomm
 **a)CLI Mode (Terminal)**
 - Run the core logic directly via terminal (no GUI).
     ```bash
-    python main_face.py
+    python code\ui_interfaces\cli_main.py
     ```
 **b)Web Interface (Streamlit)**
 - Clean, browser-based UI using Streamlit.
     ```bash
-    python main_face.py
+    streamlit run code\ui_interfaces\app_local_streamlit.py
     ```
 **c)Desktop App (PySimpleGUI)**
 - Native desktop GUI that runs as a standalone application.
     ```bash
-    python main_face.py
+    python code\ui_interfaces\app_PySimpleGUI.py
+    ```
+**Ignore - Deployed File**
+    ```bash
+    streamlit run code\deployment\app.py
     ```
 
 ### Core Tech Stack & Libraries
