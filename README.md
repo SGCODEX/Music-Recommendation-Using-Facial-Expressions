@@ -41,7 +41,7 @@ This project supports three ways to interact with the emotion-based music recomm
     python code\ui_interfaces\app_PySimpleGUI.py
     ```
 **Ignore - Deployed File**
-    ```bash
+    ```
     streamlit run code\deployment\app.py
     ```
 
