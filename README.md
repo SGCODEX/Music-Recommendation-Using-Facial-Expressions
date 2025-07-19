@@ -25,24 +25,18 @@ This project combines elements of computer vision and deep learning with web int
 
 This project supports three ways to interact with the emotion-based music recommendation system:
 
-**CLI Mode (Terminal)**
-- File: ui_interfaces/cli_main.py
+**a)CLI Mode (Terminal)**
 - Run the core logic directly via terminal (no GUI).
     ```bash
     python main_face.py
     ```
-**Web Interface (Streamlit)**
-- File: ui_interfaces/app_streamlit.py
+**b)Web Interface (Streamlit)**
 - Clean, browser-based UI using Streamlit.
-
-**Desktop App (PySimpleGUI)**
-- File: ui_interfaces/app_desktop_gui.py
-- Native desktop GUI that runs as a standalone application.
     ```bash
     python main_face.py
     ```
-
-
+**c)Desktop App (PySimpleGUI)**
+- Native desktop GUI that runs as a standalone application.
     ```bash
     python main_face.py
     ```
