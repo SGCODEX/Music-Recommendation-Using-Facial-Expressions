@@ -1,6 +1,6 @@
 # Contributing
 
-⭐ Thank you for your interest in contributing!!
+⭐ Thank you for your interest in contributing!! ⭐
 
 Here’s how you can contribute to this repository
 
