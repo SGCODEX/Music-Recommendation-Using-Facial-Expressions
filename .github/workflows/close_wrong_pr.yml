@@ -1,0 +1,22 @@
+name: Close PRs to Wrong Branches
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  auto-close-wrong-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check target branch
+        if: github.event.pull_request.base.ref != 'contribution'
+        run: |
+          echo "Closing PR targeting wrong branch: ${{ github.event.pull_request.base.ref }}"
+          gh pr close "$PR_URL" --delete-branch=false
+          gh pr comment "$PR_URL" --body "🚫 This PR targets \`${{ github.event.pull_request.base.ref }}\` instead of \`contribution\`.
+
+Please update your pull request to target the \`contribution\` branch instead. Thanks for contributing!"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
