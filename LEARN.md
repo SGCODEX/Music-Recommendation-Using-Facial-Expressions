@@ -28,19 +28,25 @@ Once the emotion is detected, the application constructs a YouTube search query 
 This project combines elements of computer vision and deep learning with web integration to create a personalized and interactive music recommendation system. It demonstrates the potential of AI-powered emotion detection in real-world applications, where user experience can be enhanced through real-time responsiveness and intelligent content recommendations.
 
 ---
-<p float="left">
-  <img
-    src="https://i.ibb.co/Jj1FBCD0/Screenshot-2025-07-22-204754.png"
-    alt="Screenshot 1"
-    width="45%"
-    style="margin-right:5%"
-  />
-  <img
-    src="https://i.ibb.co/23Cbp7mB/Screenshot-2025-07-22-205043.png"
-    alt="Screenshot 2"
-    width="45%"
-  />
-</p>
+<table>
+  <tr>
+    <td width="50%">
+      <img
+        src="https://i.ibb.co/Jj1FBCD0/Screenshot-2025-07-22-204754.png"
+        alt="Screenshot 1"
+        width="100%"
+      />
+    </td>
+    <td width="50%">
+      <img
+        src="https://i.ibb.co/23Cbp7mB/Screenshot-2025-07-22-205043.png"
+        alt="Screenshot 2"
+        width="100%"
+      />
+    </td>
+  </tr>
+</table>
+
 
 ## Key Features
 1. **Real-time Facial Detection and Emotion Recognition**  
