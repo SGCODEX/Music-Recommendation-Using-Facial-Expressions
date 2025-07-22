@@ -8,6 +8,7 @@ import requests
 import re
 import os
 import time
+from urllib.parse import quote_plus
 
 # Load model and labels
 model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
@@ -84,22 +85,17 @@ class EmotionDetector(VideoTransformerBase):
 # 🎥 Live Camera Detection Mode
 if not st.session_state.show_video:
     st.subheader("📷 Capturing Your Live Emotions")
-    col1, col2 = st.columns([1, 2])  # Adjust the ratio as you prefer
+    col1, col2 = st.columns([1, 2])
 
     with col1:
         capture = st.button("🎵 Play Song on Last Captured Emotion")
 
     with col2:
-        # ctx = webrtc_streamer(key="emotion", video_transformer_factory=EmotionDetector)
-        # Google's STUN server helps WebRTC webcam work reliably across networks and firewalls.
-        # Using public STUN server to establish webcam stream across NAT/firewalls.
-
         ctx = webrtc_streamer(
             key="emotion",
             video_transformer_factory=EmotionDetector,
             rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-            )
-
+        )
 
     if capture:
         if ctx.video_transformer:
@@ -109,23 +105,34 @@ if not st.session_state.show_video:
 
 # 🎧 Play Song For Detected Mood
 if st.session_state.show_video:
-    st.markdown("## 🎧 Now Playing Music For Your Mood")
+    st.markdown(f"## 🎧 Choose a {st.session_state.last_emotion} song to play")
     st.markdown(f"**Last Detected Mood:** `{st.session_state.last_emotion}`")
 
     if st.button("🔁 Detect Emotions Again"):
         st.session_state.show_video = False
         st.rerun()
 
-    search_query = f"https://www.youtube.com/results?search_query={st.session_state.last_emotion}+background+tunes"
+    search_query = f"https://www.youtube.com/results?search_query={quote_plus(st.session_state.last_emotion + ' background tunes')}"
     response = requests.get(search_query)
 
     if response.status_code != 200:
-        print("Failed to retrieve YouTube search results. Status code:", response.status_code)
+        st.error("Failed to retrieve YouTube search results.")
+    else:
+        html_content = response.text
+        video_ids = re.findall(r'/watch\?v=([^"]{11})', html_content)
+        unique_ids = list(dict.fromkeys(video_ids))[:5]  # Top 5 unique videos
 
-    html_content = response.text
-    match = re.search(r'/watch\?v=([^\"]+)', html_content)
-    if match:
-        video_id = match.group(1)
-        video_url = f"https://www.youtube.com/watch?v={video_id.encode('utf-8').decode('unicode_escape')}"
-        st.video(video_url)
-        print("Opening YouTube video:", video_url)
+        if unique_ids:
+            cols = st.columns(len(unique_ids))
+            for i, video_id in enumerate(unique_ids):
+                with cols[i]:
+                    video_url = f"https://www.youtube.com/watch?v={video_id}"
+                    thumbnail_url = f"https://img.youtube.com/vi/{video_id}/0.jpg"
+                    st.image(thumbnail_url, use_container_width=True)
+                    if st.button(f"▶️ Play {i+1}", key=video_id):
+                        st.session_state.selected_video = video_url
+
+            if "selected_video" in st.session_state:
+                st.video(st.session_state.selected_video)
+        else:
+            st.warning("No music videos found.")
