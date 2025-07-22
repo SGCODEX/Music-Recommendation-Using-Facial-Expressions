@@ -1,6 +1,6 @@
 # LEARN.md - Onboarding Guide for Music Recommendation via Facial Emotion
 
-Welcome to the Music-Recommendation-Using-Facial-Expressions project! This guide reflects existing repository content and key GitHub sections to help you navigate and contribute.
+Welcome to the Music-Recommendation-Using-Facial-Expressions project! This guide reflects existing repository content and key GitHub sections to help you navigate and contribute easily.
 
 ## Contents
 1. [Project Overview](#project-overview)  
@@ -28,6 +28,19 @@ Once the emotion is detected, the application constructs a YouTube search query 
 This project combines elements of computer vision and deep learning with web integration to create a personalized and interactive music recommendation system. It demonstrates the potential of AI-powered emotion detection in real-world applications, where user experience can be enhanced through real-time responsiveness and intelligent content recommendations.
 
 ---
+<p float="left">
+  <img
+    src="https://i.ibb.co/Jj1FBCD0/Screenshot-2025-07-22-204754.png"
+    alt="Screenshot 1"
+    width="45%"
+    style="margin-right:5%"
+  />
+  <img
+    src="https://i.ibb.co/23Cbp7mB/Screenshot-2025-07-22-205043.png"
+    alt="Screenshot 2"
+    width="45%"
+  />
+</p>
 
 ## Key Features
 1. **Real-time Facial Detection and Emotion Recognition**  
@@ -125,7 +138,7 @@ Music-Recommendation-Using-Facial-Expressions/
 ---
 
 ## Getting Started Locally
-From **README.md**:
+From **[README.md](README.md)**:
 ```bash
 git clone https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions.git
 cd Music-Recommendation-Using-Facial-Expressions
@@ -141,12 +154,12 @@ pip install -r requirements.txt --quiet
 ---
 
 ## How to Contribute
-As detailed in **CONTRIBUTING.md**:
+As detailed in **[CONTRIBUTING.md](CONTRIBUTING.md)**:
 1. Fork the repository  
 2. Create a branch:  
    ```bash
    git checkout -b feature/your-feature
-   ```
+   ```  
 3. Make changes and commit with a clear message  
 4. Push to your fork and open a Pull Request against `main`
 
@@ -175,21 +188,21 @@ When contributing, consider:
 ---
 
 ## Additional Resources
-- **README.md**: Quick start and overview  
-- **CONTRIBUTING.md**: Contribution guidelines  
+- **[README.md](README.md)**: Quick start and overview  
+- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Contribution guidelines  
 - **GitHub Issues**: Track feature requests and bugs  
 - **GitHub Actions**: Check the **Actions** tab for CI status  
 ---
 
 ## Next Steps
 
-1. **Explore the Code**: Open each file and read through the comments
-2. **Make Changes**: Try modifying colors, text, or functionality
-3. **Share Your Work**: Create a pull request with your improvements
+1. **Explore the Code**: Open each file and read through the comments  
+2. **Make Changes**: Try modifying colors, text, or functionality  
+3. **Share Your Work**: Create a pull request with your improvements  
 ---
 
 ## Code of Conduct
-Please review **CODE_OF_CONDUCT.md** for community guidelines and standards before contributing.
+Please review **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** for community guidelines and standards before contributing.
 
 ---
 
