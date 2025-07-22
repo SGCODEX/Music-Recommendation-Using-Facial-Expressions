@@ -96,6 +96,8 @@ This project supports three ways to interact with the emotion-based music recomm
 
 ### Contribution
 
+**NOTE: Please create PRs only to the contribution branch. All others will be automatically closed.**
+
 We welcome contributions to this project. Feel free to fork the repository, make improvements, and submit pull requests.
 We value all contributions, whether it's through code, documentation, creating demos or just spreading the word.
 **If you have introduced a new Computer Vision Library based code or new model or using new library (such as fer), Please submit final code in new_models folder.**
