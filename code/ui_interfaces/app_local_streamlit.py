@@ -13,6 +13,14 @@ model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
+def preprocess_for_hdf(frame):
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    face_img = cv2.resize(gray, (64, 64))
+    face_img = face_img.astype("float32") / 255.0
+    face_img = np.expand_dims(face_img, axis=0)
+    face_img = np.expand_dims(face_img, axis=-1)  # shape: (1, 48, 48, 1)
+    return face_img
+
 # App config
 st.set_page_config(page_title="Emotion-Based Music Player", layout="centered")
 st.title("Facial Emotion Recognition App")
@@ -181,6 +189,31 @@ if st.session_state.show_video:
         # printing the video URL for debugging purposes
         st.video(video_url)
         print("Opening YouTube video:", video_url)
+
+
+   
+
+# In your expander section:
+with st.expander("📊 Benchmark Inference Time"):
+    if st.button("📸 Capture Frame and Benchmark HDF5 Model"):
+        cap = cv2.VideoCapture(0)
+        ret, frame = cap.read()
+        cap.release()
+
+        if ret:
+            face_img = preprocess_for_hdf(frame)
+
+            start_time = time.time()
+            prediction = model.predict(face_img)
+            end_time = time.time()
+
+            predicted_emotion = emotions[np.argmax(prediction)]
+
+            st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), caption="Captured Frame", channels="RGB")
+            st.success(f"✅ HDF5 Inference Time: `{round(end_time - start_time, 3)}s`")
+            st.write("🎭 Detected Emotion:", predicted_emotion)
+        else:
+            st.error("❌ Failed to capture frame from webcam.")
 
 
 

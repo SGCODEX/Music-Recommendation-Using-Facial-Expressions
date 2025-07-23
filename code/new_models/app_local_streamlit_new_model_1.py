@@ -170,5 +170,29 @@ if st.session_state.show_video:
         print("Opening YouTube video:", video_url)
 
 
+# Benchmark: Compare DeepFace Inference Time (Optional)
+with st.expander("📊 Benchmark Inference Time"):
+    if st.button("📸 Capture Frame and Benchmark DeepFace"):
+        cap = cv2.VideoCapture(0)
+        ret, frame = cap.read()
+        cap.release()
+
+        if ret:
+            start_time = time.time()
+            try:
+                result = DeepFace.analyze(frame, actions=["emotion"], enforce_detection=False)
+                end_time = time.time()
+
+                detected_emotion = result[0]['dominant_emotion']
+                st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), caption="Captured Frame", channels="RGB")
+                st.success(f"✅ DeepFace Inference Time: `{round(end_time - start_time, 3)}s`")
+                st.write("🎭 Detected Emotion:", detected_emotion)
+            except Exception as e:
+                st.error(f"❌ DeepFace failed: {str(e)}")
+        else:
+            st.error("❌ Failed to capture frame from webcam.")
+
+
+
 
 
