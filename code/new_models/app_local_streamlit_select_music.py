@@ -3,10 +3,8 @@ import streamlit as st
 import cv2
 from keras.models import load_model
 import numpy as np
-import webbrowser
 import requests
 import re
-import os
 import time
 from urllib.parse import quote_plus
 
@@ -94,7 +92,18 @@ if not st.session_state.show_video:
         ctx = webrtc_streamer(
             key="emotion",
             video_transformer_factory=EmotionDetector,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+            rtc_configuration={
+                "iceServers": [
+                    {"urls": ["stun:stun.l.google.com:19302"]},
+                    {"urls": ["stun:stun1.l.google.com:19302"]},
+                    {"urls": ["stun:stun2.l.google.com:19302"]},
+                    {
+                        "urls": ["turn:openrelay.metered.ca:80"],
+                        "username": "openrelayproject",
+                        "credential": "openrelayproject"
+                    }
+                ]
+            }
         )
 
     if capture:
@@ -128,11 +137,14 @@ if st.session_state.show_video:
                 with cols[i]:
                     video_url = f"https://www.youtube.com/watch?v={video_id}"
                     thumbnail_url = f"https://img.youtube.com/vi/{video_id}/0.jpg"
-                    st.image(thumbnail_url, use_container_width=True)
+                    try:
+                        st.image(thumbnail_url, use_container_width=True)
+                    except TypeError:
+                        st.image(thumbnail_url)
                     if st.button(f"▶️ Play {i+1}", key=video_id):
                         st.session_state.selected_video = video_url
 
             if "selected_video" in st.session_state:
                 st.video(st.session_state.selected_video)
         else:
-             st.warning("No music videos found.")
+            st.warning("No music videos found.")
