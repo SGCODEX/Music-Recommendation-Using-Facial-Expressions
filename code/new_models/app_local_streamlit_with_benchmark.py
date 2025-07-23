@@ -193,7 +193,27 @@ if st.session_state.show_video:
 
    
 
+# In your expander section:
+with st.expander("📊 Benchmark Inference Time"):
+    if st.button("📸 Capture Frame and Benchmark HDF5 Model"):
+        cap = cv2.VideoCapture(0)
+        ret, frame = cap.read()
+        cap.release()
 
+        if ret:
+            face_img = preprocess_for_hdf(frame)
+
+            start_time = time.time()
+            prediction = model.predict(face_img)
+            end_time = time.time()
+
+            predicted_emotion = emotions[np.argmax(prediction)]
+
+            st.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), caption="Captured Frame", channels="RGB")
+            st.success(f"✅ HDF5 Inference Time: `{round(end_time - start_time, 3)}s`")
+            st.write("🎭 Detected Emotion:", predicted_emotion)
+        else:
+            st.error("❌ Failed to capture frame from webcam.")
 
 
 
