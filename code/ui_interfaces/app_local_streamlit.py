@@ -183,10 +183,5 @@ if st.session_state.show_video:
         print("Opening YouTube video:", video_url)
 
 
-   
-
-
-
-
 
 
