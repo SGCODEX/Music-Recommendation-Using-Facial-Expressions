@@ -33,6 +33,7 @@ It uses real-time webcam input to detect user emotions and plays songs aligned w
 
 | Contributor | Demo Video | Notes |
 |-------------|------------|-------|
+| [Shivam Gupta (Project Admin)](https://github.com/SGCODEX) | [Demo Link](https://www.youtube.com/watch?v=Qj5yUBjSr7I) | CLI Demo Video |
 | [Liban Ansari](https://github.com/LibanAnsari) | [Demo Link](https://drive.google.com/drive/folders/1Cx2MG26FyNOZknlcM_01XF4koXhaq0WK) | Installation guide with all 3 ways to run the app (CLI, Streamlit, PySimpleGUI) |
 | ...         | ...        | ...   |
 
