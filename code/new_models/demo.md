@@ -3,7 +3,7 @@
 Welcome to the community demo showcase for the **Facial Expression-Based Music Recommendation System**.  
 This page highlights video demonstrations contributed by developers showcasing their implementations, UI approaches, and creative twists on the core project.
 
-> 💡 Want to add your own demo? See [Issue #11 – Demo Videos](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/issues/11) for discussion and [CONTRIBUTING.md](./CONTRIBUTING.md) for instructions.
+> 💡 Want to add your own demo? See [Issue #11 – Demo Videos](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/issues/11) for discussion and [CONTRIBUTING.md](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/blob/contribution/CONTRIBUTING.md) for instructions.
 
 ---
 
@@ -44,7 +44,7 @@ We welcome all contributors to submit their own demos — whether you’ve impro
 You can reference demos listed above as examples.
 
 1. Comment or participate in [Issue #11 – Demo Videos](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/issues/11)
-2. Follow the steps in [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+2. Follow the steps in [CONTRIBUTING.md](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/blob/contribution/CONTRIBUTING.md)
 3. Add your video to the table above 
 
 ---
