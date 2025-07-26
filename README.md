@@ -84,7 +84,8 @@ This project supports three ways to interact with the emotion-based music recomm
       - The script constructs a YouTube search query based on the emotion detected.
       - The `webbrowser` module opens the search results in your default browser.
 
-- [Demo Video for CLI Interface](https://www.youtube.com/watch?v=Qj5yUBjSr7I)
+- Watch & Contribute to Community Demo Videos here: [Demo Videos](https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions/blob/contribution/code/new_models/demo.md)
+- Example Demo Video: [Demo Video for CLI Interface](https://www.youtube.com/watch?v=Qj5yUBjSr7I)
 
 ### Main Features
 **1. Real-time Facial Detection and Emotion Recognition:**
