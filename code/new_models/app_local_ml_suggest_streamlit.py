@@ -12,8 +12,11 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import NearestNeighbors
 import pandas as pd
 # Load model and labels
-model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5", compile=False)
 
+model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
+if model is None:
+    st.error("Failed to load the emotion detection model. Please check the model path.")
+    st.stop() 
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -71,9 +74,9 @@ def load_model_csv(csv_file):
     model.fit(X)
     return model, df, le
 @st.cache_data
-def recommend_songs(_model, df, le, emotion, level, n_recs=7):
+def recommend_songs(_model, df, _le, emotion, level, n_recs=7):
     try:
-        emotion_code = le.transform([emotion])[0]
+        emotion_code = _le.transform([emotion])[0]
         distances, indices = _model.kneighbors([[emotion_code, level]], n_neighbors=n_recs)
         return df.iloc[indices[0]]
     except Exception as e:
