@@ -1,3 +1,6 @@
+# Required versions:
+# protobuf==3.20.3, tensorflow==2.10
+
 import streamlit as st
 import cv2
 from deepface import DeepFace  
@@ -53,13 +56,32 @@ if "show_video" not in st.session_state:
 # Function to detect emotion
 def detect_emotion(frame):
     try:
-        result = DeepFace.analyze(frame, actions=["emotion"], enforce_detection=False)
-        emotion = result[0]['dominant_emotion']
+        results = DeepFace.analyze(frame, actions=["emotion"], enforce_detection=False)
+
+        # Handle single or multiple face results
+        if not isinstance(results, list):
+            results = [results]
+
+        for result in results:
+            emotion = result['dominant_emotion']
+            region = result['region']
+            x, y, w, h = region['x'], region['y'], region['w'], region['h']
+
+            # Draw bounding box around the detected face 
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+            # label the detected emotion above the face 
+            cv2.putText(frame, emotion, (x, y - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
+
+        # Assume first emotion as dominant for app state
+        st.session_state.last_emotion = results[0]['dominant_emotion']
+
     except Exception as e:
         emotion = st.session_state.last_emotion
         print("DeepFace failed:", e)
 
-    return frame, emotion
+    return frame, st.session_state.last_emotion
 
 # ------------------------------
 # 🎥 Live Camera Detection Mode
