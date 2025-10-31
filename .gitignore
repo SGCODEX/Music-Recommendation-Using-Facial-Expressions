@@ -2,3 +2,6 @@ venv
 .venv
 env
 .env
+# Local music cache files
+.mood_cache.json
+*/.mood_cache.json
