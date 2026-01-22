@@ -1,8 +1,8 @@
-tensorflow==2.15.0
-opencv-python-headless==4.8.0.76
-keras==2.15.0
-requests==2.31.0
-keras-models==0.0.7
+tensorflow
+opencv-python-headless
+keras
+requests
+keras-models
 PySimpleGUI
 streamlit
 streamlit-webrtc

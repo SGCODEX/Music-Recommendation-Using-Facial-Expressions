@@ -44,11 +44,25 @@ def play_first_song(final_emotion):
         print("An unexpected error occurred:", e)
     
 # Load the pre-trained facial expression recognition model
-model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5") 
+# Load the pre-trained facial expression recognition model
+import os
+# Get the directory where the script is running
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Construct the path to the model relative to the script
+model_path = os.path.join(current_dir, '..', 'model', 'fer2013_mini_XCEPTION.102-0.66.hdf5')
+# Normalize the path
+model_path = os.path.normpath(model_path)
+
+if not os.path.exists(model_path):
+    print(f"Error: Model file not found at {model_path}")
+    exit(1)
+
+model = load_model(model_path, compile=False) 
 
 # Define the list of emotions
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
+# Create a cascade classifier for detecting faces
 # Create a cascade classifier for detecting faces
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
