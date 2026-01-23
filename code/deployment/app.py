@@ -22,29 +22,126 @@ st.write("This app detects your facial expression and plays a suitable song.")
 # Footer
 st.markdown(
     """
-    <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: #f1f1f1;
-        color: #000000;
-        text-align: center;
-        padding: 12px;
-        font-size: 15px;
-        box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
-        border-top: 1px solid #ccc;
-        margin-top: 50px;
-        z-index: 9999;
-    }
-    </style>
+<style>
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(223, 242, 191, 0.9) 0%, rgba(176, 255, 186, 0.9) 50%, rgba(255, 255, 186, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #2c3e50;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    z-index: 9999;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+}
 
-    <div class="footer">
-        <a href="https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions.git" style="color: #0072E3; text-decoration: underline;">
-        Project by SGCODEX. Visit us and give this project a ⭐. Proudly part of open source programs like SWOC, IEEE-IGDTUW, GSSOC and more!!
-        </a>
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer a {
+    color: #1b5e20;
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0d3b10;
+    text-shadow: 0 0 10px rgba(27, 94, 32, 0.2);
+    transform: translateY(-1px);
+}
+
+.footer a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: #1b5e20;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.footer a:hover::after {
+    width: 100%;
+}
+
+.footer-emoji {
+    display: inline-block;
+    font-size: 1.2em;
+    margin: 0 5px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.footer-badge {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #444;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.footer-badge:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: #1b5e20;
+}
+</style>
+
+<div class="footer">
+    <div class="footer-content">
+        <div>
+            <span class="footer-emoji">🎵</span>
+            Designed & Developed by 
+            <a href="https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions.git" target="_blank">
+                SGCODEX
+            </a>
+            <span class="footer-emoji">⭐</span>
+        </div>
+        
+        <div class="badge-container">
+            <span style="font-size: 0.9em; align-self: center; margin-right: 5px;">Proudly part of:</span>
+            <span class="footer-badge" title="Semester Long Open Source Program">SWOC</span>
+            <span class="footer-badge" title="IEEE Indira Gandhi Delhi Technical University for Women">IEEE-IGDTUW</span>
+            <span class="footer-badge" title="GirlScript Summer of Code">GSSOC</span>
+        </div>
     </div>
+</div>
     """,
     unsafe_allow_html=True
 )

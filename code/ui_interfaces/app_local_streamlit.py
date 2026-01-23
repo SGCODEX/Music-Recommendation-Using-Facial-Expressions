@@ -21,28 +21,72 @@ st.write("This app detects your facial expression, displays the predicted emotio
 #Footer
 st.markdown(
     """
-    <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background-color: #f1f1f1;
-        color: #000000;
-        text-align: center;
-        padding: 12px;
-        font-size: 15px;
-        box-shadow: 0 -1px 4px rgba(0,0,0,0.1);
-        border-top: 1px solid #ccc;
-        margin-top: 50px;
-    }
-    </style>
+<style>
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #DFF2BF 0%, #FFFFBA 50%, #B0FFBA 100%);
+    color: #333;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 14px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    border-top: 2px solid #000000;
+}
 
-    <div class="footer">
-        <a href="https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions.git" style="color: #0072E3; text-decoration: underline;">
-        Project by SGCODEX. Visit us and give this project a ⭐. Proudly part of open source programs like SWOC, IEEE-IGDTUW, GSSOC and more!!
-        </a>
+.footer-main {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.footer a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.footer a:hover {
+    background: rgba(255,255,255,0.5);
+    color: #1b5e20;
+}
+
+.footer-badges {
+    font-size: 12px;
+    color: #444;
+    font-weight: 500;
+}
+
+.footer-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 0 4px;
+    font-weight: 600;
+    color: #333;
+}
+</style>
+
+<div class="footer">
+    <div class="footer-main">
+        🎵 Project by <a href="https://github.com/SGCODEX/Music-Recommendation-Using-Facial-Expressions.git" target="_blank">SGCODEX</a> ⭐ 
     </div>
+    <div class="footer-badges">
+        Open Source Programs: 
+        <span class="footer-badge">SWOC</span>
+        <span class="footer-badge">IEEE-IGDTUW</span>
+        <span class="footer-badge">GSSOC</span>
+    </div>
+</div>
     """,
     unsafe_allow_html=True
 )
