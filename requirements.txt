@@ -7,3 +7,7 @@ PySimpleGUI
 streamlit
 streamlit-webrtc
 numpy
+pygame
+Pillow
+mutagen
+git+https://github.com/usr-wwelsh/Mood-Detector.git
