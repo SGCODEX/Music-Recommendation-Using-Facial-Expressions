@@ -2,6 +2,20 @@
 
 Please give us a ⭐ and fork this repo to get started. Thank you 🙌🙌.
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Installation](#installation)
+- [How to Run & Interface Options](#how-to-run--interface-options)
+- [Core Tech Stack & Libraries](#core-tech-stack--libraries)
+- [How it Works / Usage](#how-it-works--usage)
+- [Main Features](#main-features)
+- [Customization & Additional Considerations](#customization--additional-considerations)
+- [Contribution](#contribution)
+- [PR Template](#pr-template)
+- [License](#license)
+- [Contact Us](#contact-us)
+
 ### Project Overview
 
 This project is a Python-based application that uses OpenCV for real-time facial detection and a pre-trained deep learning model (fer2013_mini_XCEPTION.102-0.66.hdf5) to recognize and analyze facial expressions. By capturing live video feed from the user’s webcam, it identifies the user’s emotions—such as happiness, sadness, anger, or neutrality—based on facial cues.
