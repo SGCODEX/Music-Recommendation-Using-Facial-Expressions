@@ -1,7 +1,7 @@
 #This is the raw code without using any fancy GUI or web tool
 #Importing the libraries
 import cv2
-from keras.models import load_model
+from keras.models import load_model  # type: ignore
 import numpy as np
 import webbrowser
 import requests
@@ -50,7 +50,7 @@ model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
 
 # Create a cascade classifier for detecting faces
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')  # type: ignore
 
 # Open a connection to the camera (0 is usually the default camera)
 cap = cv2.VideoCapture(0)

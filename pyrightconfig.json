@@ -1,0 +1,14 @@
+{
+  "include": [
+    "code",
+    "test_music_apis.py",
+    "verify_installation.py"
+  ],
+  "extraPaths": [
+    "./code"
+  ],
+  "pythonVersion": "3.8",
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "warning",
+  "reportMissingTypeStubs": false
+}

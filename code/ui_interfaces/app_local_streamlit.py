@@ -1,6 +1,6 @@
 import streamlit as st
 import cv2
-from keras.models import load_model  # Assuming you have Keras installed
+from keras.models import load_model  # type: ignore  # Assuming you have Keras installed
 import numpy as np
 import webbrowser
 import requests
@@ -11,7 +11,7 @@ import time
 # Load model and labels
 model = load_model("code/model/fer2013_mini_XCEPTION.102-0.66.hdf5")
 emotions = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')  # type: ignore
 
 # App config
 st.set_page_config(page_title="Emotion-Based Music Player", layout="centered")
