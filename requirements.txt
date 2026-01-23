@@ -10,4 +10,4 @@ numpy
 pygame
 Pillow
 mutagen
-git+https://github.com/wedsmoker/Mood-Detector.git
+git+https://github.com/usr-wwelsh/Mood-Detector.git

@@ -12,7 +12,7 @@ Requirements:
 - opencv-python
 - numpy
 - tkinter (built-in with Python)
-- mood_detector (pip install git+https://github.com/wedsmoker/Mood-Detector.git)
+- mood_detector (pip install git+https://github.com/usr-wwelsh/Mood-Detector.git)
 
 Usage:
     python local_music_mood_player.py --compute --music-folder "path/to/music"
@@ -72,7 +72,7 @@ try:
     MOOD_DETECTOR_AVAILABLE = True
 except ImportError:
     MOOD_DETECTOR_AVAILABLE = False
-    print("Note: mood_detector not found. Cache computation disabled. Install with: pip install git+https://github.com/wedsmoker/Mood-Detector.git")
+    print("Note: mood_detector not found. Cache computation disabled. Install with: pip install git+https://github.com/usr-wwelsh/Mood-Detector.git")
 
 
 class LocalMusicMoodPlayer:
@@ -258,7 +258,7 @@ class LocalMusicMoodPlayer:
         if not MOOD_DETECTOR_AVAILABLE:
             messagebox.showerror("Error", 
                 "mood_detector library not found. Please install it with:\n\n"
-                "pip install git+https://github.com/wedsmoker/Mood-Detector.git\n\n"
+                "pip install git+https://github.com/usr-wwelsh/Mood-Detector.git\n\n"
                 "Without this library, the cache cannot be computed automatically.\n"
                 "You can create a cache file manually with the expected format.")
             return
@@ -1130,7 +1130,7 @@ def compute_cache_standalone(music_folder, cache_path):
     """Standalone function to compute cache without GUI"""
     if not MOOD_DETECTOR_AVAILABLE:
         print("ERROR: mood_detector library not found.")
-        print("Please install it with: pip install git+https://github.com/wedsmoker/Mood-Detector.git")
+        print("Please install it with: pip install git+https://github.com/usr-wwelsh/Mood-Detector.git")
         sys.exit(1)
 
     # Supported audio formats
